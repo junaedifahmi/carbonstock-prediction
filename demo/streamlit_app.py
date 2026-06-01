@@ -11,12 +11,27 @@ API_URL = st.text_input(
     "http://localhost:8000/predict",
 )
 
-default_payload = {"text": "hello world"}
+default_payload = {
+    "longitude": -6.05,
+    "latitude": 4.97,
+    "B2": 0.036,
+    "B3": 0.054,
+    "B4": 0.042,
+    "B5": 0.096,
+    "B6": 0.211,
+    "B7": 0.242,
+    "B8": 0.240,
+    "B8A": 0.265,
+    "B11": 0.125,
+    "B12": 0.062,
+    "VV": -7.65,
+    "VH": -14.51,
+}
 
 payload_text = st.text_area(
     "Request JSON",
     value=json.dumps(default_payload, indent=2),
-    height=250,
+    height=420,
 )
 
 if st.button("Send Request"):

@@ -34,5 +34,5 @@ async def health_check():
 @app.post("/predict")
 async def predict(data: InputFeatures) -> OutputPredicted:
     engine = app.state.engine
-    result = await engine.ainvoke()
+    result = await engine.ainvoke(data)
     return result
