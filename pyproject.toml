@@ -1,0 +1,18 @@
+[project]
+name = "sda-model-deployment"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.136.3",
+    "pydantic-settings>=2.14.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "streamlit>=1.45",
+    "ruff",
+    "requests",
+    "mypy",
+]
