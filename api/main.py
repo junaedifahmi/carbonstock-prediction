@@ -3,7 +3,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from app.config import APP_NAME, APP_VERSION, APP_DESCRIPTION
-from models import Engine
+from app.engine import Engine
+from app.schema import InputFeatures, OutputPredicted
 
 
 @asynccontextmanager
@@ -31,8 +32,7 @@ async def health_check():
 
 
 @app.post("/predict")
-async def predict():
+async def predict(data: InputFeatures) -> OutputPredicted:
     engine = app.state.engine
-
     result = await engine.ainvoke()
-    return {"result": result}
+    return result
