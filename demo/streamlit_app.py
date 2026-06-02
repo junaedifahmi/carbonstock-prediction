@@ -1,6 +1,7 @@
 # demo/streamlit_app.py
 
 import json
+import os
 
 import requests
 import streamlit as st
@@ -8,7 +9,7 @@ import streamlit as st
 
 API_URL = st.text_input(
     "API URL",
-    "http://localhost:8000/predict",
+    os.environ.get("API_URL", "http://localhost:8000/predict"),
 )
 
 default_payload = {

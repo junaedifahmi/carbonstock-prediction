@@ -1633,16 +1633,16 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "numpy" },
     { name = "pydantic-settings" },
+    { name = "requests" },
     { name = "scikit-learn" },
+    { name = "streamlit" },
     { name = "xgboost" },
 ]
 
 [package.optional-dependencies]
 dev = [
     { name = "mypy" },
-    { name = "requests" },
     { name = "ruff" },
-    { name = "streamlit" },
 ]
 
 [package.metadata]
@@ -1651,10 +1651,10 @@ requires-dist = [
     { name = "mypy", marker = "extra == 'dev'" },
     { name = "numpy", specifier = ">=2.0" },
     { name = "pydantic-settings", specifier = ">=2.14.1" },
-    { name = "requests", marker = "extra == 'dev'" },
+    { name = "requests", specifier = ">=2.31" },
     { name = "ruff", marker = "extra == 'dev'" },
     { name = "scikit-learn", specifier = ">=1.6" },
-    { name = "streamlit", marker = "extra == 'dev'", specifier = ">=1.45" },
+    { name = "streamlit", specifier = ">=1.45" },
     { name = "xgboost", specifier = ">=3.0" },
 ]
 provides-extras = ["dev"]

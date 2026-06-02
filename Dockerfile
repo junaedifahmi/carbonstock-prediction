@@ -1,17 +1,30 @@
 FROM python:3.12-slim
 
-WORKDIR /app
-
 # Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
-# Install dependencies
+# Hugging Face Spaces runs the container as UID 1000
+RUN useradd -m -u 1000 user
+
+WORKDIR /app
+
+# Install dependencies (runtime only, no dev tools) — cached layer
 COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen --no-dev
 
 # Copy application
 COPY . .
 
-EXPOSE 8000
+# Hand ownership to the runtime user and make the launcher executable
+RUN chmod +x start.sh && chown -R user:user /app
 
-CMD ["uv", "run", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+USER user
+
+# HF Spaces routes traffic to $PORT (Streamlit); FastAPI stays internal on 8000
+ENV HOME=/home/user \
+    PORT=7860 \
+    API_URL=http://localhost:8000/predict
+
+EXPOSE 7860
+
+CMD ["./start.sh"]
