@@ -8,12 +8,14 @@ RUN useradd -m -u 1000 user
 
 WORKDIR /app
 
-# Install dependencies (runtime only, no dev tools) — cached layer
+# Install dependencies only (not the project itself) — cached layer.
+# The project build needs the source tree, which isn't present yet.
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev
+RUN uv sync --frozen --no-install-project --no-dev
 
-# Copy application
+# Copy application, then install the project so its metadata resolves
 COPY . .
+RUN uv sync --frozen --no-dev
 
 # Hand ownership to the runtime user and make the launcher executable
 RUN chmod +x start.sh && chown -R user:user /app
